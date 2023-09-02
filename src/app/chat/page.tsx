@@ -62,7 +62,7 @@ const Chat: React.FC<ChatProps> = ({
   selectConversation,
 }) => {
   return (
-    <div className="flex w-screen h-screen overflow-hidden">
+    <div className="flex w-screen h-screen ">
       <Sidebar
         isOpen={isSidebarOpen}
         closeSidebar={toggleSidebar}
@@ -70,10 +70,8 @@ const Chat: React.FC<ChatProps> = ({
         selectConversation={selectConversation}
       />
       <div
-        className={`flex flex-col md:w-full md:blur-none transition-all duration-200 ease-in-out ${
-          isSidebarOpen
-            ? 'w-[50%] md:w-[calc(100%-25%)] blur-sm '
-            : 'w-full blur-none'
+        className={`flex flex-col w-full transition-all duration-200 ease-in-out ${
+          isSidebarOpen ? 'md:w-3/4' : 'md:w-full'
         }`}
       >
         <ChatHeader
@@ -94,7 +92,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
 }) => {
   return (
     <div
-      className={`sticky w-screen top-0 flex gap-2 justify-between p-4 md:p-2 border-b-2 ${
+      className={`sticky top-0 flex gap-2 justify-between p-4 md:p-2 border-b-2 w-full ${
         isSidebarOpen ? 'pointer-events-none' : ''
       } bg-zinc-100 border-b-zinc-300`}
     >
@@ -159,7 +157,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages }) => {
 // Chat Input
 const ChatInput: React.FC = () => {
   return (
-    <div className="sticky bottom-0 grid w-screen gap-1 p-2 border-t-2 md:gap-2 md:p-4 min-w-min bg-zinc-100">
+    <div className="sticky bottom-0 left-0 right-0 grid w-full gap-1 p-2 border-t-2 md:gap-2 md:p-4 min-w-min bg-zinc-100">
       <Textarea
         className="p-2 text-xs bg-white resize-none md:text-base ring-zinc-200 ring-1 h-fit"
         placeholder="Type your message here."
@@ -193,4 +191,4 @@ const Message: React.FC<IMessage> = ({ sender, text }) => {
   );
 };
 
-export default Chat;
+export default ChatContainer;
