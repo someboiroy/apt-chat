@@ -22,7 +22,7 @@ interface ChatHeaderProps {
   isSidebarOpen: boolean;
 }
 
-const Chat: React.FC = () => {
+const ChatContainer: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [conversations, setConversations] = useState(testData.conversations);
   const [currentMessages, setCurrentMessages] = useState([]);
@@ -35,6 +35,32 @@ const Chat: React.FC = () => {
     setCurrentMessages(messages);
   };
 
+  return (
+    <Chat
+      isSidebarOpen={isSidebarOpen}
+      toggleSidebar={toggleSidebar}
+      conversations={conversations}
+      currentMessages={currentMessages}
+      selectConversation={selectConversation}
+    />
+  );
+};
+
+interface ChatProps {
+  isSidebarOpen: boolean;
+  toggleSidebar: () => void;
+  conversations: any; // Specify the actual type here
+  currentMessages: IMessage[];
+  selectConversation: (messages: any) => void;
+}
+
+const Chat: React.FC<ChatProps> = ({
+  isSidebarOpen,
+  toggleSidebar,
+  conversations,
+  currentMessages,
+  selectConversation,
+}) => {
   return (
     <div className="flex w-screen h-screen overflow-hidden">
       <Sidebar
