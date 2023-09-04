@@ -36,7 +36,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </Button>
           <Button
             size={'lg'}
-            className="mb-2 md:w-1/4"
+            className="mb-2 md:w-1/4 "
             variant={'destructive'}
             onClick={closeSidebar}
           >

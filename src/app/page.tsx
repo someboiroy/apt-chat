@@ -25,7 +25,7 @@ const LandingPage = () => {
       </div>
       <div className="flex flex-col gap-4 mt-6 md:flex-row">
         <div className="w-full p-12 shadow-xl rounded-xl md:w-1/3 bg-zinc-200 ring-1 ring-gray-300">
-          <h1 className="text-4xl font-extrabold tracking-tight scroll-m-20 md:text-5xl">
+          <h1 className="text-4xl font-extrabold tracking-tight scroll-m-20 md:text-4xl">
             <FaRegClock size={48} className="mb-6" />
             Always Current.
           </h1>
@@ -34,7 +34,7 @@ const LandingPage = () => {
           </p>
         </div>
         <div className="w-full p-12 shadow-xl rounded-xl md:w-1/3 bg-zinc-200 ring-1 ring-gray-300">
-          <h1 className="text-4xl font-extrabold tracking-tight scroll-m-20 md:text-5xl">
+          <h1 className="text-4xl font-extrabold tracking-tight scroll-m-20 md:text-4xl">
             <FaHandsHelping size={48} className="mb-6" />
             Helps When ChatGPT Can&apos;t.
           </h1>
@@ -43,7 +43,7 @@ const LandingPage = () => {
           </p>
         </div>
         <div className="w-full p-12 shadow-xl rounded-xl md:w-1/3 bg-zinc-200 ring-1 ring-gray-300">
-          <h1 className="text-4xl font-extrabold tracking-tight scroll-m-20 md:text-5xl">
+          <h1 className="text-4xl font-extrabold tracking-tight scroll-m-20 md:text-4xl">
             <FaCode size={48} className="mb-6" />
             APIs, Frameworks, and More.
           </h1>
@@ -52,7 +52,7 @@ const LandingPage = () => {
           </p>
         </div>
       </div>
-      <footer className="text-left rounded-md mt-28 ">
+      <footer className="text-left rounded-md mt-52">
         <div className="">
           <div className="flex space-x-4">
             <a
