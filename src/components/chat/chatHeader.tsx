@@ -5,6 +5,8 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
+import { LogOut, CreateNewChat } from '../headerButtons';
+
 import { FaBars } from 'react-icons/fa';
 
 interface ChatHeaderProps {
@@ -51,7 +53,10 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
           </HoverCard>
         </p>
       </div>
-      <Button className="mb-2 text-xs md:mb-0 md:text-base">New Chat</Button>
+      <div className="flex gap-2">
+        <CreateNewChat />
+        <LogOut />
+      </div>
     </div>
   );
 };
