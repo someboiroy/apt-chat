@@ -18,8 +18,8 @@ const TextTransitionComponent: React.FC = () => {
 
   return (
     <TextTransition
-      springConfig={presets.wobbly}
-      className="text-2xl font-semibold tracking-tight scroll-m-20 "
+      springConfig={presets.gentle}
+      className="text-2xl font-semibold tracking-tight scroll-m-20"
     >
       {TEXTS[index % TEXTS.length]}
     </TextTransition>

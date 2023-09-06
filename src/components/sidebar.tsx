@@ -25,8 +25,8 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <div
-      className={`relative w-[50%] md:w-[25%] text-white shadow-lg h-full transition-all border-zinc-300 border-r-2 ${
-        isOpen ? 'md:w-1/4 min-w-min' : 'w-0'
+      className={`relative text-white shadow-lg h-full transition-all border-r-2 ${
+        isOpen ? 'md:w-1/4' : 'w-0'
       } bg-transparent bg-zinc-700 overflow-x-hidden`}
     >
       <div className="p-4">
@@ -36,7 +36,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </Button>
           <Button
             size={'lg'}
-            className="mb-2 md:w-1/4"
+            className="mb-2 md:w-1/4 "
             variant={'destructive'}
             onClick={closeSidebar}
           >
