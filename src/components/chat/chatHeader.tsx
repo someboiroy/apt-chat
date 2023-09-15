@@ -5,60 +5,52 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
-import { LogOut, CreateNewChat } from '../headerButtons';
+import { CreateNewChat } from '../headerButtons';
+import { useStore } from '@/store';
 
 import { FaBars } from 'react-icons/fa';
+import ChatHeaderButton from './chatHeaderButton';
+
+import Sidebar from '../sidebar';
 
 interface ChatHeaderProps {
   toggleSidebar: () => void;
   isSidebarOpen: boolean;
 }
 
-// Chat Header
-const ChatHeader: React.FC<ChatHeaderProps> = ({
-  toggleSidebar,
-  isSidebarOpen,
-}) => {
+// const toggleSidebar = () => {
+//   useStore.setState({ isSidebarOpen: !useStore.getState().isSidebarOpen });
+// };
+
+export default function ChatHeader() {
   return (
     <div
-      className={`sticky top-0 flex gap-2 justify-between p-4 md:p-2 border-b-2 w-full ${
-        isSidebarOpen ? 'pointer-events-none' : ''
-      } bg-zinc-100 border-b-zinc-300`}
+      className={`sticky top-0 gap-2 p-2  md:p-2 border-b-2 w-screen 
+         bg-zinc-100 border-b-zinc-300`}
     >
-      <Button
-        className={`mb-2 md:mb-0 ${isSidebarOpen ? 'hidden' : ''}`}
-        size={'icon'}
-        variant={'outline'}
-        onClick={toggleSidebar}
-      >
-        <FaBars size={20} />
-      </Button>
-      <div className="items-center md:flex">
-        <div className="text-xs md:text-base">
+      <div className="flex gap-2 text-center place-content-center md:items-center md:justify-between">
+        <div className="text-xs md:flex md:items-center md:flex-1">
           <Combobox />
+          <p className="mb-2 text-xs font-bold text-center md:mb-0 md:text-md md:ml-2">
+            Select a{' '}
+            <HoverCard>
+              <HoverCardTrigger>
+                <span className="underline underline-offset-1">Chat Focus</span>
+              </HoverCardTrigger>
+              <HoverCardContent className="text-xs font-medium md:text-sm">
+                <span className="font-bold">Chat Focus</span> is how apt-chat
+                has up-to-date knowledge.
+                <br />
+                <br />
+                Without a selection apt-chat&apos;s knowledge is limited.
+              </HoverCardContent>
+            </HoverCard>
+          </p>
         </div>
-        <p className="text-xs font-bold text-center md:text-md md:ml-2">
-          Select a{' '}
-          <HoverCard>
-            <HoverCardTrigger>
-              <span className="underline underline-offset-1">Chat Focus</span>
-            </HoverCardTrigger>
-            <HoverCardContent className="text-xs font-medium md:text-sm">
-              <span className="font-bold">Chat Focus</span> is how apt-chat has
-              up-to-date knowledge.
-              <br />
-              <br />
-              Without a selection apt-chat&apos;s knowledge is limited.
-            </HoverCardContent>
-          </HoverCard>
-        </p>
-      </div>
-      <div className="flex gap-2">
-        <CreateNewChat />
-        <LogOut />
+        <div className="grid justify-center gap-2 2">
+          <CreateNewChat />
+        </div>
       </div>
     </div>
   );
-};
-
-export default ChatHeader;
+}
