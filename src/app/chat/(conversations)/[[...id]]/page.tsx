@@ -1,4 +1,3 @@
-import Chat from '@/components/chat/chat';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -16,7 +15,7 @@ interface pageProps {
   };
 }
 
-export default async function ChatContainer({ params }: pageProps) {
+export default async function Chat({ params }: pageProps) {
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const { data: Converstations, error } = await supabase
