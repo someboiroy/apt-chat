@@ -7,5 +7,6 @@ type State = {
 
 export const useStore = create<State>((set) => ({
   isSidebarOpen: true,
-  toggleSidebar: (isSidebarOpen: boolean) => set({ isSidebarOpen }),
+  toggleSidebar: (isSidebarOpen: boolean) =>
+    set({ isSidebarOpen: !isSidebarOpen }),
 }));

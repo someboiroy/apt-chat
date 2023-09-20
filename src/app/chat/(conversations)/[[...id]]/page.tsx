@@ -17,6 +17,12 @@ interface pageProps {
 
 export default async function Chat({ params }: pageProps) {
   const supabase = createServerComponentClient<Database>({ cookies });
+  const user = await supabase.auth.getUser();
+
+  const userInfo = {
+    name: user.data.user?.user_metadata.full_name,
+    avatar_url: user.data.user?.user_metadata.avatar_url,
+  };
 
   const { data: Converstations, error } = await supabase
     .from('Conversations')
@@ -32,8 +38,8 @@ export default async function Chat({ params }: pageProps) {
 
   return (
     <div className="flex w-screen h-screen">
-      <Sidebar conversations={Converstations} />
-      <div className="flex flex-col overflow-hidden transition-all duration-200 ease-in-out w-fit">
+      <Sidebar conversations={Converstations} user={userInfo} />
+      <div className="flex flex-col w-full overflow-hidden transition-all duration-200 ease-in-out">
         <ChatHeader />
         <ChatWindow convoId={params.id} />
         <ChatInput />
