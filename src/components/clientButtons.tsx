@@ -38,10 +38,9 @@ function CreateNewChat({ extraStyles }: { extraStyles?: string }) {
     <Button
       size={'default'}
       onClick={() => handleClick()}
-      className={`text-xs md:text-base ${extraStyles}`}
+      className={`text-xs md:text-sm ${extraStyles}`}
     >
-      <TbPlus size={20} />
-      New Chat
+      New Chat <TbPlus size={16} />
     </Button>
   );
 }

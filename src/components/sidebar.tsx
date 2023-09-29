@@ -39,7 +39,7 @@ export default function Sidebar({ conversations, user }: SidebarProps) {
         <div className="flex flex-col h-full p-2">
           <div className="flex items-center gap-2 m-2">
             <CreateNewChat
-              extraStyles={'w-full bg-zinc-200/20 hover:bg-zinc-600'}
+              extraStyles={'w-full  bg-zinc-200/20 hover:bg-zinc-600'}
             />
             <SidebarToggleButton
               extraStyles={'bg-zinc-200/20  hover:bg-zinc-600'}
