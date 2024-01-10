@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import { FaGithub } from 'react-icons/fa';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { redirect } from 'next/navigation';
 
 export default function LoginWithGithub() {
   const supabase = createClientComponentClient();

@@ -5,7 +5,10 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 import { useStore } from '../store';
 import { FaBars } from 'react-icons/fa';
-import { TbLogout, TbPlus } from 'react-icons/tb';
+import { TbLogout, TbPlus, TbTrash } from 'react-icons/tb';
+import { redirect } from 'next/navigation';
+
+// TODO: ADD Toasts for success and error
 
 function LogOut() {
   const supabase = createClientComponentClient();
@@ -30,17 +33,58 @@ function LogOut() {
   );
 }
 
-function CreateNewChat({ extraStyles }: { extraStyles?: string }) {
-  const supabase = createClientComponentClient();
+const handleNewChatClick = async () => {
+  const res = await fetch('/api/createNewChat', {
+    method: 'POST',
+  });
+  const newURL = await res.json();
 
-  const handleClick = async () => {};
+  return newURL;
+};
+
+function CreateNewChatButton({ extraStyles }: { extraStyles?: string }) {
+  const router = useRouter();
+
   return (
     <Button
-      size={'default'}
-      onClick={() => handleClick()}
-      className={`text-xs md:text-sm ${extraStyles}`}
+      size={'lg'}
+      onClick={() =>
+        handleNewChatClick().then((url: string) => router.push(url))
+      }
+      className={`${extraStyles}`}
     >
-      New Chat <TbPlus size={16} />
+      New Chat
+    </Button>
+  );
+}
+
+const handleDeleteChatClick = async (convoID: string) => {
+  const res = await fetch('/api/deleteChat', {
+    method: 'POST',
+    body: JSON.stringify({
+      conversation_id: convoID,
+    }),
+  });
+};
+
+function DeleteChatButton({
+  extraStyles,
+  convoID,
+}: {
+  extraStyles?: string;
+  convoID: string;
+}) {
+  const router = useRouter();
+  return (
+    <Button
+      size={'sm'}
+      variant={'ghost'}
+      onClick={() =>
+        handleDeleteChatClick(convoID).then(() => router.replace('/chat'))
+      }
+      className={`text-xs p-1 ${extraStyles}`}
+    >
+      <TbTrash color={'white'} className={'hover:text-black'} size={20} />
     </Button>
   );
 }
@@ -50,7 +94,7 @@ function SidebarToggleButton({ extraStyles }: { extraStyles?: string }) {
 
   return (
     <Button
-      className={`${extraStyles}`}
+      className={`p-6 ${extraStyles}`}
       size={'default'}
       variant={'default'}
       onClick={() => toggleSidebar(isSidebarOpen)}
@@ -60,4 +104,4 @@ function SidebarToggleButton({ extraStyles }: { extraStyles?: string }) {
   );
 }
 
-export { LogOut, CreateNewChat, SidebarToggleButton };
+export { LogOut, SidebarToggleButton, CreateNewChatButton, DeleteChatButton };

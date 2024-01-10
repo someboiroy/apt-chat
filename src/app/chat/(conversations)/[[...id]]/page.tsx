@@ -32,20 +32,30 @@ export default async function Chat({ params }: pageProps) {
   let Messages: Message[] = [];
 
   if (params.id) {
-    const { data, error } = await supabase
-      .from('Messages')
-      .select('*')
+    const { count } = await supabase
+      .from('Conversations')
+      .select('*', { count: 'exact' })
       .eq('conversation_id', params.id);
 
-    if (data) {
-      data.map((msg) => {
-        Messages!.push({
-          id: msg.message_id,
-          content: msg.content,
-          createdAt: new Date(msg.created_at),
-          role: msg.role,
+    if (count === 0) {
+      // TODO: Add toast for error, can be similar to chatGPT
+      redirect('/chat');
+    } else {
+      const { data, error } = await supabase
+        .from('Messages')
+        .select('*')
+        .eq('conversation_id', params.id);
+
+      if (data) {
+        data.map((msg) => {
+          Messages!.push({
+            id: msg.message_id,
+            content: msg.content,
+            createdAt: new Date(msg.created_at),
+            role: msg.role,
+          });
         });
-      });
+      }
     }
   }
 

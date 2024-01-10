@@ -8,6 +8,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
+
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { FaRedo, FaInfo } from 'react-icons/fa';
@@ -19,19 +20,32 @@ import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import CodeBlock from '@/components/codeblock';
 
+import NewChatDialog from '@/components/newChatDialog';
+
 import React from 'react';
 import type { Message } from 'ai';
 
 interface ChatWindowProps {
   conversation_id: string;
   prevMessages: Message[];
+  userID?: string;
+}
+
+async function createNewChat() {
+  const res = await fetch('/api/createNewChat', {
+    method: 'POST',
+  });
+  const newURL = await res.json();
+  return newURL;
 }
 
 export default function ChatWindow({
   conversation_id,
   prevMessages,
+  userID,
 }: ChatWindowProps) {
   const lastMessageRef = React.useRef<HTMLDivElement>(null);
+  const [isNewChatDialogOpen, setNewChatDialogOpen] = React.useState(false);
 
   const { messages, input, handleInputChange, handleSubmit, reload } = useChat({
     api: '/api/chat',
@@ -40,23 +54,28 @@ export default function ChatWindow({
     body: {
       conversationID: conversation_id,
     },
-    onResponse: (res) => {
-      console.log(res);
+    onResponse(response) {
+      console.log(response);
+      if (!conversation_id) {
+        console.log('no id', response);
+      }
+    },
+    onFinish: () => {
+      if (!conversation_id) {
+      }
     },
   });
+
   React.useEffect(() => {
     if (lastMessageRef.current) {
       lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+      setNewChatDialogOpen(!conversation_id);
     }
-  }, [messages]);
-
-  // const handleSend = () => {
-  //   // You can add any additional logic here before sending a message
-  //   handleSubmit();
-  // };
+  }, [messages, conversation_id]);
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
+      <NewChatDialog isOpen={isNewChatDialogOpen} />
       <ScrollArea className="relative flex-grow overflow-y-auto">
         <div>
           {messages.map((msg, index) => {
@@ -67,7 +86,6 @@ export default function ChatWindow({
                 <TbBrandOpenai size={20} />
               );
             const messageColor = msg.role === 'user' ? '' : 'bg-zinc-100';
-
             return (
               <div className={` ${messageColor}`} key={index}>
                 <div className="flex items-center p-6 ">
@@ -142,7 +160,7 @@ export default function ChatWindow({
               Send message
             </Button>
             <Button
-              onClick={() => reload()}
+              onClick={() => reload}
               className="bg-violet-500"
               size={'icon'}
             >

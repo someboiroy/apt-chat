@@ -3,13 +3,15 @@
 import {
   LogOut,
   SidebarToggleButton,
-  CreateNewChat,
+  CreateNewChatButton,
+  DeleteChatButton,
 } from '@/components/clientButtons';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useStore } from '@/store';
 import { PiChatCircleBold } from 'react-icons/pi';
+import React from 'react';
 
 interface SidebarProps {
   user: {
@@ -38,8 +40,8 @@ export default function Sidebar({ conversations, user }: SidebarProps) {
       >
         <div className="flex flex-col h-full p-2">
           <div className="flex items-center gap-2 m-2">
-            <CreateNewChat
-              extraStyles={'w-full  bg-zinc-200/20 hover:bg-zinc-600'}
+            <CreateNewChatButton
+              extraStyles={'p-6 text-md hover:bg-zinc-800/20'}
             />
             <SidebarToggleButton
               extraStyles={'bg-zinc-200/20  hover:bg-zinc-600'}
@@ -49,21 +51,25 @@ export default function Sidebar({ conversations, user }: SidebarProps) {
             {conversations?.map((convo) => {
               let focus =
                 pathname == `/chat/${convo.conversation_id}`
-                  ? 'bg-violet-200/40'
+                  ? 'bg-purple-300/20 shadow-black/20 shadow-sm'
                   : '';
               return (
                 <div
                   key={convo.conversation_id}
-                  className={`flex flex-col p-2 m-2 rounded-md    hover:bg-zinc-600 bg-zinc-200/20  ${focus}`}
+                  className={`flex flex-col p-2 m-1 rounded-md  hover:bg-zinc-600   ${focus}`}
                 >
                   <Link
-                    className="md:text-md"
+                    className="text-md"
                     href={`/chat/${convo.conversation_id}`}
                   >
                     <div className="flex items-center gap-2">
                       <PiChatCircleBold size={18} className="text-white" />
 
                       <p className="text-white">{convo.conversation_title}</p>
+                      <DeleteChatButton
+                        extraStyles={'ml-auto hover:bg-black/40 '}
+                        convoID={convo.conversation_id}
+                      />
                     </div>
                   </Link>
                 </div>
